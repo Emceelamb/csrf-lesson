@@ -1,0 +1,7 @@
+<h1>What's your favorite candy?</h1>
+<form action="/submit" method="POST">
+    <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
+    <label for="message">Favorite candy: </label>
+    <input id="message" name="message" type="text" />
+  <input type="submit" value="Submit" />
+</form>
