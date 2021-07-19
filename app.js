@@ -7,25 +7,24 @@ const csurf = require('csurf');
 const cookieParser = require('cookie-parser');
 
 
-const PORT = 8000
+const PORT = 4001;
 
 app.set("views", path.join(__dirname, "/views"));
 app.set("view engine", "ejs");
 app.use(partials());
 
-app.use(cookieParser());
+app.use(cookieParser())
+
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 
 app.use(express.static(path.join(__dirname, "/public")));
 
 
-const csrfMiddleware = csurf({
-  cookie: true
-});
+const csrfMiddleware = csurf({cookie:true});
 app.use(csrfMiddleware);
 
-app.get('/', csrfMiddleware, (req, res) => {
+app.get('/', (req, res) => {
   res.render('form', {csrfToken: req.csrfToken()})
 })
 
@@ -41,4 +40,4 @@ app.use((err, req, res, next) => {
   }
 })
 
-app.listen(PORT, () => console.log(`Listening on http://localhost:${PORT}`) );
+app.listen(process.env.PORT || PORT, () => console.log(`Listening on http://localhost:${PORT}`) );
